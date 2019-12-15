@@ -1,3 +1,4 @@
+<%@page import="com.gyf.bookstore.model.Outlist"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -13,45 +14,7 @@
 	<div id="divpagecontent">
 		<table width="100%" border="0" cellspacing="0">
 			<tr>
-				<td width="25%"><table width="100%" border="0" cellspacing="0"
-						style="margin-top:30px">
-						<tr>
-							<td class="listtitle">我的帐户</td>
-						</tr>
-						<tr>
-							<td class="listtd"><img src="images/miniicon.gif" width="9"
-								height="6" />&nbsp;&nbsp;&nbsp;&nbsp; <a
-								href="modifyuserinfo.jsp">用户信息修改</a>
-							</td>
-						</tr>
-
-						<tr>
-							<td class="listtd"><img src="images/miniicon.gif" width="9"
-								height="6" />&nbsp;&nbsp;&nbsp;&nbsp; <a href="orderlist.jsp">订单查询</a>
-							</td>
-						</tr>
-						<tr>
-							<td class="listtd"><img src="images/miniicon.gif" width="9"
-								height="6" />&nbsp;&nbsp;&nbsp;&nbsp; <a href="#">用戶退出</a></td>
-						</tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-					</table>
-				</td>
+				
 				<td><div style="text-align:right; margin:5px 10px 5px 0px">
 						<a href="index.jsp">首页</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;<a
 							href="myAccount.jsp">&nbsp;我的帐户</a>&nbsp;&nbsp;&nbsp;&nbsp;&gt;&nbsp;&nbsp;&nbsp;&nbsp;订单查询
@@ -63,42 +26,27 @@
 
 					<table cellspacing="0" class="infocontent">
 						<tr>
-							<td style="padding:20px"><p>欢迎xxx光临商城！</p>
-								<p>
-									您有<font style="color:#FF0000">xx</font>个订单
-								</p>
+							<td style="padding:20px"><p>以下为${user.username}同学的借书记录</p>
 								<table width="100%" border="0" cellspacing="0" class="tableopen">
 									<tr>
-										<td bgcolor="#A3E6DF" class="tableopentd01">订单号</td>
-										<td bgcolor="#A3D7E6" class="tableopentd01">收件人</td>
-										<td bgcolor="#A3CCE6" class="tableopentd01">订单时间</td>
-										<td bgcolor="#A3B6E6" class="tableopentd01">状态</td>
+										<td bgcolor="#A3E6DF" class="tableopentd01">图书号码</td>
+										<td bgcolor="#A3D7E6" class="tableopentd01">书名</td>
+										<td bgcolor="#A3CCE6" class="tableopentd01">借阅时间</td>
 										<td bgcolor="#A3E2E6" class="tableopentd01">操作</td>
 									</tr>
 
-
-
+                                    <%for(int i=0;i<2;i++){ %>
+                                    <%ArrayList<Outlist> joutlist=(ArrayList<Outlist>)session.getAttribute("outlists"); %>
 									<tr>
-										<td class="tableopentd02">001</td>
-
-										<td class="tableopentd02">tom</td>
-										<td class="tableopentd02">2012-10-10</td>
-										<td class="tableopentd02">未支付</td>
+										<td class="tableopentd02"><%=joutlist.get(i).getAbookid()%></td>
+										<td class="tableopentd02"><%=joutlist.get(i).getBookname()%></td>
+										<td class="tableopentd02"><%=joutlist.get(i).getBorrowdate()%></td>
 										<td class="tableopentd03"><a href="orderInfo.jsp">查看</a>&nbsp;&nbsp;
 											<a href="#">刪除</a>
 										</td>
 									</tr>
+									<%} %>
 									
-									<tr>
-										<td class="tableopentd02">002</td>
-
-										<td class="tableopentd02">张三</td>
-										<td class="tableopentd02">2014-10-10</td>
-										<td class="tableopentd02">已支付</td>
-										<td class="tableopentd03"><a href="orderInfo.jsp">查看</a>&nbsp;&nbsp;
-											<a href="#">刪除</a>
-										</td>
-									</tr>
 								</table>
 							</td>
 						</tr>

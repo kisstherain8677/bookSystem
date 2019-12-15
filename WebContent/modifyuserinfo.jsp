@@ -52,18 +52,11 @@
 						<tr>
 							<td>
 								<form action="modifyUserInfoSuccess.jsp" method="post">
-									<input type="hidden" name="id" value="${user.id}">
+									<input type="hidden" name="id" value="${user.userid}">
 									<table width="100%" border="0" cellspacing="2" class="upline">
 										<tr>
-											<td style="text-align:right; width:20%">会员邮箱：</td>
-											<td style="width:40%; padding-left:20px">tom@qq.cn</td>
-											<td>&nbsp;</td>
-
-
-										</tr>
-										<tr>
 											<td style="text-align:right">会员名：</td>
-											<td style="padding-left:20px">tom</td>
+											<td style="padding-left:20px">${user.username}</td>
 											<td>&nbsp;</td>
 										</tr>
 										<tr>

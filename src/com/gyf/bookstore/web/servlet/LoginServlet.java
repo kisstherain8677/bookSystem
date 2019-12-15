@@ -1,6 +1,7 @@
 package com.gyf.bookstore.web.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gyf.bookstore.exception.UserException;
+import com.gyf.bookstore.model.Outlist;
 import com.gyf.bookstore.model.User;
 import com.gyf.bookstore.service.UserService;
 import com.sun.javafx.binding.StringFormatter;
@@ -22,29 +24,37 @@ public class LoginServlet extends HttpServlet {
     	 
     	  //获取请求参数 
     	String username=request.getParameter("username");
-    	String password=request.getParameter("password");
+    	String userid=request.getParameter("userid");
     	//调用service
     	UserService us=new UserService();
+   
     	try {
-			User user=us.login(username, password);
+			User user=us.login(username, userid);
+			
+			ArrayList<Outlist>outlists=new ArrayList<Outlist>();
+			outlists=us.getList(userid);
+					
 			//登录成功，根据角色选择跳转页面
 			String path;
 			if("管理员".equals(user.getRole())) {
 				path="/admin/login/home.jsp";
 			}else {
-				path="/index.jsp";
+				path="/orderlist.jsp";
 			}
-			
 			
 			//把user保存到session（记录在服务端的用户信息）
 			request.getSession().setAttribute("user", user);
-			//request.getRequestDispatcher("/index.jsp").forward(request, response);
             
+			//把user的借阅信息保存到session
+			request.getSession().setAttribute("outlists", outlists);
+			//打印结果
+			System.out.println(outlists.get(0).getBorrowdate());
+			
 			response.sendRedirect(request.getContextPath()+path);//重定向解决表单重复提交
     	} catch (UserException e) {
 			// 登录失败，回到登录页面
 			e.printStackTrace();
-			request.setAttribute("login_msg", "用户名或密码错误");
+			request.setAttribute("login_msg", "姓名或学号错误");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
     	

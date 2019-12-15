@@ -11,7 +11,7 @@
 <body class="main">
 
 	<%@include file="head.jsp"%>
-	<%@include file="menu_search.jsp" %>
+	<!-- %@include file="menu_search.jsp" %-->
 	<div id="divad">
 		<img src="ad/index_ad.jpg" />
 	</div>
