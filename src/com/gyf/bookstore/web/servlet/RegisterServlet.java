@@ -23,16 +23,6 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	// TODO Auto-generated method stub
     	
-    	  //检验验证码
-    	  //获取表单中的验证码
-    	  String checkcode_client=request.getParameter("checkcode");
-    	  String checkcode_session=(String)request.getSession().getAttribute("checkcode_session");
-    	  if(!checkcode_client.equals(checkcode_session)) {
-    		  //验证码不一致,跳回注册页面
-    		  request.setAttribute("checkcode_err", "验证码错误");
-    		  request.getRequestDispatcher("/register.jsp").forward(request, response);
-    		  return;
-    	  }
     	  
     	 //1.把参数转为Bean和model
     	  User user = new User();
@@ -41,9 +31,8 @@ public class RegisterServlet extends HttpServlet {
 			System.out.println(user.toString());
 			
 			//设置默认信息ֵ
-			user.setActiveCode(UUID.randomUUID().toString());
+			user.setPassword(null);
 			user.setRole("普通用户");
-			user.setRegisterTime(new Date());
 			
 			System.out.println(user.toString());
 			
@@ -63,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
 		    }
     	  catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("����ת��ģ��ʧ��");
+			System.out.println("注册失败");
 			e.printStackTrace();
 		} 
     	 

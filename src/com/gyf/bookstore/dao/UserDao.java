@@ -22,23 +22,18 @@ public class UserDao {
 	public void addUser(User user) throws SQLException {
 		//1.获取QueryRunner
 		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());
-	    //����sql
+	    //sql
 		String sql="insert into user";
-		sql+=" (username,PASSWORD,gender,email,telephone,introduce,activeCode,state,role,registTime)";
-	    sql+=" values(?,?,?,?,?,?,?,?,?,?)";
+		sql+=" (userid,username,major,role,password)";
+	    sql+=" values(?,?,?,?,?)";
 	    
 	    //得到sql语句
 	    List<Object> list= new ArrayList<Object>();
+	    list.add(user.getUserid());
 	    list.add(user.getUsername());
-	    list.add(user.getPassword());
-	    list.add(user.getGender());
-	    list.add(user.getEmail());
-	    list.add(user.getTelephone());
-	    list.add(user.getIntroduce());
-	    list.add(user.getActiveCode());
-	    list.add(user.getState());
+	    list.add(user.getMajor());
 	    list.add(user.getRole());
-	    list.add(user.getRegisterTime());
+	    list.add(user.getPassword());
 	    
 	    //ִ执行sql语句
 	    qr.update(sql,list.toArray());
