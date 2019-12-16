@@ -21,22 +21,31 @@ public class ListDao {
 	 * @param user
 	 * @throws SQLException 
 	 */
-	public void addList(User user) throws SQLException {
+	//借书，增加一条借阅记录
+	public void addList(String userid,String abookid) throws SQLException {
 		//1.获取QueryRunner
 		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());
 	    //sql
-		String sql="insert into user";
-		sql+=" (userid,username,major,role,password)";
-	    sql+=" values(?,?,?,?,?)";
+		String sql="insert into outlist";
+		sql+=" (userid,abookid,borrow_date)";
+	    sql+=" values(?,?,curdate())";
 	    
-	    //得到sql语句
+	    //得到sql语句	
 	    List<Object> list= new ArrayList<Object>();
-	    list.add(user.getUserid());
-	    list.add(user.getUsername());
-	    list.add(user.getMajor());
-	    list.add(user.getRole());
-	    list.add(user.getPassword());
-	    
+	    list.add(userid);
+	    list.add(abookid);	    
+	    //ִ执行sql语句
+	    qr.update(sql,list.toArray());
+	}
+	
+	//还书，删除一条借阅记录
+	public void removeList(String userid,String abookid) throws SQLException {
+		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());		
+		String sql="delete from outlist where userid=? and abookid=?";	    
+	    //得到sql语句	
+	    List<Object> list= new ArrayList<Object>();
+	    list.add(userid);
+	    list.add(abookid);	    
 	    //ִ执行sql语句
 	    qr.update(sql,list.toArray());
 	}
@@ -50,9 +59,9 @@ public class ListDao {
 				"where userid=?;";
 	    ArrayList<Outlist> outlists=new ArrayList<Outlist>();
 	    outlists=(ArrayList<Outlist>) qr.query(sql, new BeanListHandler<Outlist>(Outlist.class),userid);
+	    System.out.println("this is findListbyuserid "+outlists.get(0).getBorrowdate());
 	    return outlists;
 		//return qr.query(sql, new BeanHandler<Outlist>(User.class),userid);
-		
 	}
 
 }

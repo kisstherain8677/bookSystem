@@ -21,9 +21,9 @@ public class Outlist {
 	public Date getBorrowdate() {
 		return borrowdate;
 	}
+	
 	public void setBorrowdate(Date borrowdate) {
 		this.borrowdate = borrowdate;
 	}
-    
-    
+       
 }

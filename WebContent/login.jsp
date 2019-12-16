@@ -10,9 +10,6 @@
 
 <body class="main">
 
-	<jsp:include page="head.jsp" />
-	<jsp:include page="menu_search.jsp" />
-
 	<div id="divcontent">
 		<form action="${pageContext.request.contextPath}/login" method="post">
 			<table width="900px" border="0" cellspacing="0">
@@ -79,10 +76,6 @@
 			</table>
 		</form>
 	</div>
-
-
-
-	<jsp:include page="foot.jsp" />
 
 
 </body>

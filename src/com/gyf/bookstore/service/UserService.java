@@ -59,6 +59,26 @@ public class UserService {
 			throw new UserException("查询借阅信息失败");
 		}
 	}
+	
+	public void borrow(String userid,String abookid) throws UserException {
+		try {
+			listDao.addList(userid, abookid);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new UserException("借阅失败，同一本书在归还前不能再次借阅,或学号书号不正确");
+		}
+	}
+	
+	public void returnBook(String userid,String abookid) throws UserException {
+		try {
+			listDao.removeList(userid, abookid);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new UserException("还书失败，书未被借阅或学号书号不正确");
+		}
+	}
 
 	
 }
