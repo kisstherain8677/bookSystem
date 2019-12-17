@@ -41,7 +41,6 @@ public class LoginServlet extends HttpServlet {
 			}else {
 				path="/orderlist.jsp";
 			}
-			
 			//把user保存到session（记录在服务端的用户信息）
 			request.getSession().setAttribute("user", user);
 			//把user的借阅信息保存到session

@@ -3,7 +3,6 @@ package com.gyf.bookstore.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -54,12 +53,12 @@ public class ListDao {
 	public ArrayList<Outlist> findListByUserid(String userid) throws SQLException {
 		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());
 		
-		String sql="select outlist.abookid,bookname,borrow_date\r\n" + 
+		String sql="select outlist.abookid,bookname,borrow_date as borrowdate\r\n" + //注意这里名字要和bean对应一样
 				"from outlist join book on outlist.abookid=book.abookid join books on book.bookid=books.bookid\r\n" + 
 				"where userid=?;";
 	    ArrayList<Outlist> outlists=new ArrayList<Outlist>();
 	    outlists=(ArrayList<Outlist>) qr.query(sql, new BeanListHandler<Outlist>(Outlist.class),userid);
-	    System.out.println("this is findListbyuserid "+outlists.get(0).getBorrowdate());
+	    System.out.println("this is findListbyuserid "+outlists.get(0).getBorrowdate()+outlists.get(0).getBookname()+outlists.get(0).getAbookid());
 	    return outlists;
 		//return qr.query(sql, new BeanHandler<Outlist>(User.class),userid);
 	}
