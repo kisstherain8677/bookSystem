@@ -24,8 +24,7 @@
 									<tr>
 										<td bgcolor="#A3E6DF" class="tableopentd01">图书号码</td>
 										<td bgcolor="#A3D7E6" class="tableopentd01">书名</td>
-										<td bgcolor="#A3CCE6" class="tableopentd01">借阅时间</td>
-								
+										<td bgcolor="#A3CCE6" class="tableopentd01">借阅时间</td>						
 									</tr>
 									 <%ArrayList<Outlist> joutlist=(ArrayList<Outlist>)session.getAttribute("outlists"); %>
 									<%int listLength=joutlist.size(); %>

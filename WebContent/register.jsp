@@ -19,9 +19,6 @@
 
 
 <body class="main">
-	<%@include file="head.jsp"%>
-	<%--导入头 --%>
-	<%@include file="menu_search.jsp"%><%--导入导航条与搜索 --%>
 
 	<div id="divcontent">
 		<form action="${pageContext.request.contextPath}/register"
