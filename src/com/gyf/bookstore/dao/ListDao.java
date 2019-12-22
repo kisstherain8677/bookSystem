@@ -26,7 +26,7 @@ public class ListDao {
 		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());
 	    //sql
 		String sql="insert into outlist";
-		sql+=" (userid,abookid,borrow_date)";
+		sql+=" (userid,abookid,borrowDate)";
 	    sql+=" values(?,?,curdate())";
 	    
 	    //得到sql语句	
@@ -38,27 +38,22 @@ public class ListDao {
 	}
 	
 	//还书，删除一条借阅记录
-	public void removeList(String userid,String abookid) throws SQLException {
+	public int removeList(String abookid) throws SQLException {
 		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());		
-		String sql="delete from outlist where userid=? and abookid=?";	    
-	    //得到sql语句	
-	    List<Object> list= new ArrayList<Object>();
-	    list.add(userid);
-	    list.add(abookid);	    
+		String sql="delete from outlist where abookid=?";
 	    //ִ执行sql语句
-	    qr.update(sql,list.toArray());
+	    return qr.update(sql,abookid);
 	}
 	
 	//根据学号查找借书记录,以ArrayList的形式返回
 	public ArrayList<Outlist> findListByUserid(String userid) throws SQLException {
 		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());
 		
-		String sql="select outlist.abookid,bookname,borrow_date as borrowdate\r\n" + //注意这里名字要和bean对应一样
-				"from outlist join book on outlist.abookid=book.abookid join books on book.bookid=books.bookid\r\n" + 
-				"where userid=?;";
+		String sql="select outlist.abookid,bookname,borrowdate from outlist "
+				+ "join abook on outlist.abookid=abook.abookid join books on "
+				+ "abook.bookid=books.bookid where userid=?;";
 	    ArrayList<Outlist> outlists=new ArrayList<Outlist>();
 	    outlists=(ArrayList<Outlist>) qr.query(sql, new BeanListHandler<Outlist>(Outlist.class),userid);
-	    System.out.println("this is findListbyuserid "+outlists.get(0).getBorrowdate()+outlists.get(0).getBookname()+outlists.get(0).getAbookid());
 	    return outlists;
 		//return qr.query(sql, new BeanHandler<Outlist>(User.class),userid);
 	}

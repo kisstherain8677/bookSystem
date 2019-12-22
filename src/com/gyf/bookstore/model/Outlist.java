@@ -2,28 +2,42 @@ package com.gyf.bookstore.model;
 
 import java.util.Date;
 
-public class Outlist {
-	private String abookid;
-    private String bookname;
-    private Date borrowdate;
-	public String getAbookid() {
-		return abookid;
-	}
-	public void setAbookid(String abookid) {
-		this.abookid = abookid;
-	}
-	public String getBookname() {
-		return bookname;
-	}
-	public void setBookname(String bookname) {
-		this.bookname = bookname;
-	}
-	public Date getBorrowdate() {
-		return borrowdate;
-	}
-	
-	public void setBorrowdate(Date borrowdate) {
-		this.borrowdate = borrowdate;
-	}
-       
+
+public class Outlist
+{
+    private String abookId;
+
+    private Integer userId;
+
+    private Date borrowDate;
+
+    public String getAbookId()
+    {
+        return abookId;
+    }
+
+    public void setAbookId(String abookId)
+    {
+        this.abookId = abookId;
+    }
+
+    public Integer getUserId()
+    {
+        return userId;
+    }
+
+    public void setUserId(Integer userId)
+    {
+        this.userId = userId;
+    }
+
+    public Date getBorrowDate()
+    {
+        return borrowDate;
+    }
+
+    public void setBorrowDate(Date borrowDate)
+    {
+        this.borrowDate = borrowDate;
+    }
 }

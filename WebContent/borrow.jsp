@@ -1,65 +1,62 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%--
+  Created by IntelliJ IDEA.
+  User: Creams
+  Date: 2018/1/15
+  Time: 16:01
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/borrow.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/InfoScript.js"></script>
+<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <html>
 <head>
-
-<title>借阅</title>
-<%--导入css --%>
-<link rel="stylesheet" href="css/main.css" type="text/css" />
-<script type="text/javascript">
-	function changeImage() {
-
-		document.getElementById("img").src = "${pageContext.request.contextPath}/imageCode?time="
-				+ new Date().getTime();
-	}
-</script>
+    <title>书本借出记录登记表</title>
 </head>
+<%
+    request.setCharacterEncoding("utf-8");
+    if (session.getAttribute("user") == null)
+    {
+        response.sendRedirect("index.jsp");
+    }
+%>
+<body>
+<div id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1">    
+<img src="main_am.jpg" height="100%" width="100%"/>    
+</div> 
+<jsp:include page="nav.html"/>
+<div class="borrowinfo" style="font-weight:bold">
+    <div class="title">
+        书本借出记录登记表
+    </div>
+<%--    <form action="/borrow" onsubmit="return errorsubmit()" method="post">--%>
+        <div>
+            <span class="infotitle">读者学号：</span><input type="text" onkeyup="readercheck()" name="userid"
+                                                       id="userid"><span id="readeridcheck" class="error"></span>
+        </div>
+        <div>
+            <span class="infotitle">书本编号：</span><input type="text" name="abookid" onkeyup="bookcheck()"
+                                                       id="abookid"><span id="bookidcheck" class="error"></span>
+        </div>
+        <div class="button">
+            <button type="button" class="btn btn-success" onclick="submit()">提交</button>
+            <button type="reset" class="btn btn-default">重填</button>
+        </div>
+<%--    </form>--%>
+</div>
+<script>
+    function submit() {
+        $.post("${pageContext.request.contextPath}/borrow", {userid:$("#userid").val(), abookid:$("#abookid").val()},
+            function (message) {
+                alert(message);
+            });
+    }
 
-
-<body class="main">
-
-	<div id="divcontent">
-		<form action="${pageContext.request.contextPath}/borrow"
-			method="post">
-			<table width="850px" border="0" cellspacing="0">
-				<tr>
-					<td style="padding:30px">
-						<h1>借阅图书</h1>
-						
-						<table width="70%" border="0" cellspacing="2" class="upline">
-							<tr align="center">
-							<td></td>
-							<td><font color="red">${borrow_err}</font></td>
-							<td></tr>
-							
-							<tr>
-								<td style="text-align:right; width:20%">学号：</td>
-								<td style="width:40%">
-								<input type="text" class="textinput"
-									name="userid" /></td>
-							</tr>
-							<tr>
-								<td style="text-align:right">图书id码：</td>
-								<td>
-									<input type="text" class="textinput" name="abookid" />
-								</td>
-							</tr>
-						</table>
-
-					   <table width="70%" border="0" cellspacing="0">
-							<tr>
-								<td style="padding-top:20px; text-align:center"><input
-									type="image" src="images/signup.gif" name="submit" border="0">
-								</td>
-							</tr>
-						</table></td>
-				</tr>
-			</table>
-		</form>
-	</div>
-
-
+</script>
 </body>
-</html>
+</html> 

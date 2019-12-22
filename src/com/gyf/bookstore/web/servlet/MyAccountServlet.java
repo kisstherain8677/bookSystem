@@ -14,7 +14,7 @@ import com.gyf.bookstore.model.User;
 public class MyAccountServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect(request.getContextPath()+"/login.jsp");
+//		response.sendRedirect(request.getContextPath()+"/login.jsp");
 		
 //		//如果登录进入myAccount.jsp
 //		User user=(User)request.getSession().getAttribute("user");

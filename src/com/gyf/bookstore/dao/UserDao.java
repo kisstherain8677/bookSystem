@@ -31,7 +31,6 @@ public class UserDao {
 	    List<Object> list= new ArrayList<Object>();
 	    list.add(user.getUserid());
 	    list.add(user.getUsername());
-	    list.add(user.getMajor());
 	    list.add(user.getRole());
 	    list.add(user.getPassword());
 	    
@@ -40,11 +39,20 @@ public class UserDao {
 	}
 	
 	//根据用户名和密码查找用户
-	public User findUserByUsernameAndPassword(String username,String userid) throws SQLException {
+	public User findUserByUsernameAndid(String username,String userid) throws SQLException {
 		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());
 		
 		String sql="select * from user where username=? and userid=?";
 		return qr.query(sql, new BeanHandler<User>(User.class),username,userid);
+		
+	}
+	
+	
+	public User findUserByUseridAndPassword(String userid,String password) throws SQLException {
+		QueryRunner qr=new QueryRunner(C3P0Utils.getDataSource());
+		
+		String sql="select * from user where userid=? and password=?";
+		return qr.query(sql, new BeanHandler<User>(User.class),userid,password);
 		
 	}
 

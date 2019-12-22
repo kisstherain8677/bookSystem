@@ -27,7 +27,7 @@
 							</td>
 							<td style="padding-top:30px"><font
 								style="font-weight:bold; color:#FF0000">注册成功,别忘记激活帐户啊</font><br />
-								<br /> <a href="index.jsp"><span id="second">5</span>秒后自动为您转跳回首页</a>
+								<br /> <a href="myAccount.jsp"><span id="second">5</span>秒后自动为您转跳回首页</a>
 							</td>
 						</tr>
 					</table>

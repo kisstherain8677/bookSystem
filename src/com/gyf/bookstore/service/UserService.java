@@ -25,10 +25,10 @@ public class UserService {
 		}
 	}
 	
-	public User login(String username,String userid) throws UserException {
+	public User search_stu(String username,String userid) throws UserException {
 		try {
 			//1.查询
-			User user=userDao.findUserByUsernameAndPassword(username, userid);
+			User user=userDao.findUserByUsernameAndid(username, userid);
 		    
 			//2.判断
 			if(user==null) {
@@ -46,7 +46,28 @@ public class UserService {
 		}
 	}
 	
-	//查找借阅信息
+	
+	
+	public User login(String userid,String password) throws UserException {
+		try {
+			//1.查询
+			User user=userDao.findUserByUseridAndPassword(userid, password);
+		    
+			//2.判断
+			if(user==null) {
+				throw new UserException("找不到相关信息");
+			}
+			//激活判断
+			
+			//无问题返回
+			return user;
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new UserException("查询用户信息失败");
+		}
+	}
 	
 
 	public ArrayList<Outlist> getList(String userid) throws UserException {
@@ -65,18 +86,19 @@ public class UserService {
 			listDao.addList(userid, abookid);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new UserException("借阅失败，同一本书在归还前不能再次借阅,或学号书号不正确");
+			throw new UserException("借阅失败!\n该书已被借阅\n或学号书号不正确");
 		}
 	}
 	
-	public void returnBook(String userid,String abookid) throws UserException {
+	public void returnBook(String abookid) throws UserException {
 		try {
-			listDao.removeList(userid, abookid);
+			if(listDao.removeList(abookid) == 0)
+			{
+				throw new UserException("归还失败!\n该书在馆\n或书号不正确");
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-			throw new UserException("还书失败，书未被借阅或学号书号不正确");
+			throw new UserException("Unknown mistake");
 		}
 	}
 

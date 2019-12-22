@@ -9,4 +9,15 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+   <servlet>
+        <servlet-name>BookServlet</servlet-name>
+        <servlet-class>com.gyf.bookstore.web.servlet.BookServlet</servlet-class>
+    </servlet>
+   
+    <servlet-mapping>
+        <servlet-name>BookServlet</servlet-name>
+        <url-pattern>/BookServlet</url-pattern>
+    </servlet-mapping>
+    
 </web-app>

@@ -4,15 +4,12 @@ public class User {
 	private String userid;
 	private String username;
 	private String password;
-	private String major;
 	private String role;
 	
 
 	public String getUserid() {
 		return userid;
 	}
-
-
 
 	public void setUserid(String userid) {
 		this.userid = userid;
@@ -44,17 +41,6 @@ public class User {
 
 
 
-	public String getMajor() {
-		return major;
-	}
-
-
-
-	public void setMajor(String major) {
-		this.major = major;
-	}
-
-
 
 	public String getRole() {
 		return role;
@@ -68,7 +54,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userid=" + userid + ", username=" + username + ", password=" + password + ", major=" + major
+		return "User [userid=" + userid + ", username=" + username + ", password=" + password 
 				+ ", role=" + role + "]";
 	}	
 	

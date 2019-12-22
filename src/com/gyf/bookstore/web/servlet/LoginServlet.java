@@ -21,33 +21,34 @@ public class LoginServlet extends HttpServlet {
       //处理发出的post请求
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	request.setCharacterEncoding("UTF-8");
-    	 
-    	  //获取请求参数 
-    	String username=request.getParameter("username");
+
+    	  //获取请求参数
     	String userid=request.getParameter("userid");
+    	String password=request.getParameter("password");
     	//调用service
     	UserService us=new UserService();
-   
+
     	try {
-			User user=us.login(username, userid);
-			
-			ArrayList<Outlist>outlists=new ArrayList<Outlist>();
-			outlists=us.getList(userid);
-					
+			User user=us.login(userid, password);
+
+			//ArrayList<Outlist>outlists=new ArrayList<Outlist>();
+			//outlists=us.getList(userid);
+
 			//登录成功，根据角色选择跳转页面
 			String path;
-			if("管理员".equals(user.getRole())) {
-				path="/admin/login/home.jsp";
-			}else {
-				path="/orderlist.jsp";
-			}
+			System.out.print(user.getRole());
+//			if("管理员".equals(user.getRole())) {
+				path="/main.jsp";
+//			}else {
+//				path="/index.jsp";
+//			}
 			//把user保存到session（记录在服务端的用户信息）
 			request.getSession().setAttribute("user", user);
 			//把user的借阅信息保存到session
-			request.getSession().setAttribute("outlists", outlists);
+			//request.getSession().setAttribute("outlists", outlists);
 			//打印结果
-			System.out.println(outlists.get(0).getBorrowdate());
-			
+			//System.out.println(outlists.get(0).getBorrowdate());
+
 			response.sendRedirect(request.getContextPath()+path);//重定向解决表单重复提交
     	} catch (UserException e) {
 			// 登录失败，回到登录页面
@@ -55,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("login_msg", "姓名或学号错误");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 		}
-    	
+
       }
 }
 
